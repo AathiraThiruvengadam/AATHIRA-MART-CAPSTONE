@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Admin dashboard - manage users, sellers, products and orders.">
+  <title>Admin Dashboard | AATHIRA MART</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%234f46e5'/%3E%3Ctext x='50' y='72' font-size='62' text-anchor='middle' fill='%23f59e0b' font-family='Arial' font-weight='bold'%3EA%3C/text%3E%3C/svg%3E">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg am-navbar sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="/index.html">
+      <span class="brand-mark">A</span>
+      <span class="brand-text">AATHIRA <b>MART</b></span>
+    </a>
+    <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" data-nav="index.html" href="/index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" data-nav="products.html" href="/products.html">Shop</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+          <ul class="dropdown-menu" id="navCategoryMenu">
+            <li><a class="dropdown-item" href="/products.html">All Gadgets</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" data-nav="orders.html" href="/orders.html">My Orders</a></li>
+      </ul>
+      <form class="d-flex nav-search" id="navSearchForm" role="search">
+        <input class="form-control" id="navSearchInput" type="search" placeholder="Search gadgets…" aria-label="Search">
+        <button class="btn" type="submit" aria-label="Search"><i class="bi bi-search"></i></button>
+      </form>
+      <div class="nav-actions">
+        <a href="/cart.html" class="cart-link" aria-label="Cart"><i class="bi bi-cart3"></i><span class="cart-badge" id="cartBadge">0</span></a>
+        <div id="authGuest" class="d-flex gap-2">
+          <a href="/login.html" class="btn btn-sm btn-outline-light">Login</a>
+          <a href="/register.html" class="btn btn-sm btn-accent">Sign Up</a>
+        </div>
+        <div id="authUser" class="dropdown d-none">
+          <button class="btn btn-light dropdown-toggle user-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="user-avatar" id="userAvatar">U</span><span id="userName">User</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><span class="dropdown-item-text small text-muted" id="userEmail">-</span></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/account.html"><i class="bi bi-person me-2"></i>My Account</a></li>
+            <li><a class="dropdown-item" href="/orders.html"><i class="bi bi-box-seam me-2"></i>Order History</a></li>
+            <li><a class="dropdown-item" href="/cart.html"><i class="bi bi-cart3 me-2"></i>Cart</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><button class="dropdown-item text-danger" id="logoutBtn"><i class="bi bi-box-arrow-right me-2"></i>Logout</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="section">
+  <div class="container">
+    <div class="mb-3 breadcrumb-am">
+      <a href="/index.html">Home</a> <span class="mx-1">/</span> <span>Admin Dashboard</span>
+    </div>
+
+    <div class="section-head">
+      <div>
+        <h2><i class="bi bi-shield-lock me-2 text-primary"></i>Admin Dashboard</h2>
+        <p class="sub">Manage users, sellers, the catalogue and every order</p>
+      </div>
+      <a href="/products.html" class="btn btn-outline-primary btn-sm px-3"><i class="bi bi-eye me-1"></i>View storefront</a>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-md-4">
+        <div class="stat-card">
+          <div class="stat-icon bg-soft text-primary"><i class="bi bi-people"></i></div>
+          <div><b id="statUsers">—</b><span>Total users</span></div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="stat-card">
+          <div class="stat-icon bg-soft text-success"><i class="bi bi-shop"></i></div>
+          <div><b id="statSellers">—</b><span>Sellers</span></div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="stat-card">
+          <div class="stat-icon bg-soft text-warning"><i class="bi bi-box-seam"></i></div>
+          <div><b id="statProducts">—</b><span>Products</span></div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="stat-card">
+          <div class="stat-icon bg-soft text-danger"><i class="bi bi-bag-check"></i></div>
+          <div><b id="statOrders">—</b><span>Orders</span></div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="stat-card">
+          <div class="stat-icon bg-soft text-info"><i class="bi bi-currency-rupee"></i></div>
+          <div><b id="statRevenue">—</b><span>Gross order value</span></div>
+        </div>
+      </div>
+    </div>
+
+    <ul class="nav dash-tabs mb-3" role="tablist">
+      <li class="nav-item">
+        <button class="nav-link active" data-dash-tab="users" type="button"><i class="bi bi-people me-1"></i>Users</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" data-dash-tab="sellers" type="button"><i class="bi bi-shop me-1"></i>Sellers</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" data-dash-tab="products" type="button"><i class="bi bi-box me-1"></i>Products</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" data-dash-tab="orders" type="button"><i class="bi bi-truck me-1"></i>Orders</button>
+      </li>
+    </ul>
+
+    <!-- Users -->
+    <div id="pane-users">
+      <div class="panel">
+        <h5><i class="bi bi-people me-2 text-primary"></i>All users</h5>
+        <div id="usersRoot">
+          <div class="page-loading"><div class="spinner-border text-primary" role="status"></div><div>Loading users…</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sellers -->
+    <div id="pane-sellers" class="d-none">
+      <div class="panel">
+        <h5><i class="bi bi-shop me-2 text-primary"></i>Registered sellers</h5>
+        <div id="sellersRoot">
+          <div class="page-loading"><div class="spinner-border text-primary" role="status"></div><div>Loading sellers…</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Products -->
+    <div id="pane-products" class="d-none">
+      <div class="panel mb-4 d-none" id="productFormPanel">
+        <h5 id="productFormTitle"><i class="bi bi-plus-circle me-2 text-primary"></i>Add product</h5>
+        <form id="productForm" novalidate>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label" for="pfName">Product name</label>
+              <input class="form-control" id="pfName" name="name" type="text" maxlength="180" placeholder="e.g. Nova Buds Pro Earbuds">
+              <div class="field-error" data-error-for="name"></div>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label" for="pfBrand">Brand</label>
+              <input class="form-control" id="pfBrand" name="brand" type="text" maxlength="80" placeholder="e.g. Nova">
+              <div class="field-error" data-error-for="brand"></div>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label" for="pfCategory">Category</label>
+              <select class="form-select" id="pfCategory" name="categoryId">
+                <option value="">Select…</option>
+              </select>
+              <div class="field-error" data-error-for="categoryId"></div>
+            </div>
+            <div class="col-12">
+              <label class="form-label" for="pfDescription">Description</label>
+              <textarea class="form-control" id="pfDescription" name="description" rows="2" maxlength="1000"
+                        placeholder="Key specs and selling points"></textarea>
+              <div class="field-error" data-error-for="description"></div>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label" for="pfPrice">Price (₹)</label>
+              <input class="form-control" id="pfPrice" name="price" type="number" min="1" step="0.01" placeholder="9999">
+              <div class="field-error" data-error-for="price"></div>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label" for="pfMrp">MRP (₹)</label>
+              <input class="form-control" id="pfMrp" name="mrp" type="number" min="0" step="0.01" placeholder="12999">
+              <div class="field-error" data-error-for="mrp"></div>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label" for="pfStock">Stock</label>
+              <input class="form-control" id="pfStock" name="stock" type="number" min="0" step="1" placeholder="50">
+              <div class="field-error" data-error-for="stock"></div>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label" for="pfImage">Product image</label>
+              <select class="form-select" id="pfImage" name="image">
+                <option value="/images/gadgets/smartphone.svg">Smartphone</option>
+                <option value="/images/gadgets/laptop.svg">Laptop</option>
+                <option value="/images/gadgets/headphones.svg">Headphones</option>
+                <option value="/images/gadgets/smartwatch.svg">Smartwatch</option>
+                <option value="/images/gadgets/keyboard.svg">Keyboard</option>
+                <option value="/images/gadgets/mouse.svg">Mouse</option>
+                <option value="/images/gadgets/speaker.svg">Speaker</option>
+                <option value="/images/gadgets/charger.svg">Charger</option>
+                <option value="/images/gadgets/powerbank.svg">Power bank</option>
+                <option value="/images/gadgets/tablet.svg">Tablet</option>
+                <option value="/images/gadgets/camera.svg">Camera</option>
+                <option value="/images/gadgets/usbdrive.svg">USB drive</option>
+                <option value="/images/gadgets/accessories.svg">Accessory</option>
+              </select>
+              <div class="field-error" data-error-for="image"></div>
+            </div>
+            <div class="col-12">
+              <div class="form-check">
+                <input class="form-check-input" id="pfFeatured" name="featured" type="checkbox">
+                <label class="form-check-label small" for="pfFeatured">Mark as featured on the home page</label>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex gap-2 mt-3">
+            <button class="btn btn-primary-am" type="submit" id="saveProductBtn">
+              <i class="bi bi-check2-circle me-1"></i>Save product
+            </button>
+            <button class="btn btn-outline-secondary" type="button" id="cancelProductBtn">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="panel">
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+          <h5 class="mb-0"><i class="bi bi-box-seam me-2 text-primary"></i>Full catalogue</h5>
+          <button class="btn btn-primary-am btn-sm px-3" id="addProductBtn" type="button">
+            <i class="bi bi-plus-lg me-1"></i>Add product
+          </button>
+        </div>
+        <div id="productsRoot">
+          <div class="page-loading"><div class="spinner-border text-primary" role="status"></div><div>Loading products…</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Orders -->
+    <div id="pane-orders" class="d-none">
+      <div class="panel">
+        <h5><i class="bi bi-truck me-2 text-primary"></i>All orders</h5>
+        <p class="small text-muted">Update any order's status. Cancelling an order returns its items to stock.</p>
+        <div id="ordersRoot">
+          <div class="page-loading"><div class="spinner-border text-primary" role="status"></div><div>Loading orders…</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="am-footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;margin-top:0;padding-top:0;">
+      <span>© 2026 AATHIRA MART. All rights reserved.</span>
+      <span>Smart Gadgets. Easy Shopping.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/navbar.js"></script>
+<script src="/js/admin-dashboard.js"></script>
+</body>
+</html>

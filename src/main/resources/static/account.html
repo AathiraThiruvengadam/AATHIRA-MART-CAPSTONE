@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manage your profile and password - AATHIRA MART.">
+  <title>My Account | AATHIRA MART</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%234f46e5'/%3E%3Ctext x='50' y='72' font-size='62' text-anchor='middle' fill='%23f59e0b' font-family='Arial' font-weight='bold'%3EA%3C/text%3E%3C/svg%3E">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg am-navbar sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="/index.html">
+      <span class="brand-mark">A</span>
+      <span class="brand-text">AATHIRA <b>MART</b></span>
+    </a>
+    <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" data-nav="index.html" href="/index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" data-nav="products.html" href="/products.html">Shop</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+          <ul class="dropdown-menu" id="navCategoryMenu">
+            <li><a class="dropdown-item" href="/products.html">All Gadgets</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" data-nav="orders.html" href="/orders.html">My Orders</a></li>
+      </ul>
+      <form class="d-flex nav-search" id="navSearchForm" role="search">
+        <input class="form-control" id="navSearchInput" type="search" placeholder="Search gadgets…" aria-label="Search">
+        <button class="btn" type="submit" aria-label="Search"><i class="bi bi-search"></i></button>
+      </form>
+      <div class="nav-actions">
+        <a href="/cart.html" class="cart-link" aria-label="Cart"><i class="bi bi-cart3"></i><span class="cart-badge" id="cartBadge">0</span></a>
+        <div id="authGuest" class="d-flex gap-2">
+          <a href="/login.html" class="btn btn-sm btn-outline-light">Login</a>
+          <a href="/register.html" class="btn btn-sm btn-accent">Sign Up</a>
+        </div>
+        <div id="authUser" class="dropdown d-none">
+          <button class="btn btn-light dropdown-toggle user-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="user-avatar" id="userAvatar">U</span><span id="userName">User</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><span class="dropdown-item-text small text-muted" id="userEmail">-</span></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/account.html"><i class="bi bi-person me-2"></i>My Account</a></li>
+            <li><a class="dropdown-item" href="/orders.html"><i class="bi bi-box-seam me-2"></i>Order History</a></li>
+            <li><a class="dropdown-item" href="/cart.html"><i class="bi bi-cart3 me-2"></i>Cart</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><button class="dropdown-item text-danger" id="logoutBtn"><i class="bi bi-box-arrow-right me-2"></i>Logout</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="section">
+  <div class="container">
+    <div class="mb-3 breadcrumb-am">
+      <a href="/index.html">Home</a> <span class="mx-1">/</span> <span>My Account</span>
+    </div>
+
+    <div class="section-head">
+      <div>
+        <h2>My Account</h2>
+        <p class="sub">Manage your profile, password and orders</p>
+      </div>
+      <button class="btn btn-outline-danger btn-sm px-3" id="accountLogoutBtn" type="button">
+        <i class="bi bi-box-arrow-right me-1"></i>Logout
+      </button>
+    </div>
+
+    <div class="row g-4" id="accountRoot">
+      <div class="col-lg-4">
+        <div class="panel text-center">
+          <div class="auth-logo" id="profileAvatar" style="margin-top:0">A</div>
+          <h5 class="fw-bold mb-1" id="profileName">Loading…</h5>
+          <div class="text-muted small mb-3" id="profileEmail"></div>
+
+          <div class="row text-start g-2 small">
+            <div class="col-6"><div class="bg-soft rounded p-2">
+              <div class="text-muted">Role</div><b id="profileRole">—</b></div></div>
+            <div class="col-6"><div class="bg-soft rounded p-2">
+              <div class="text-muted">Orders</div><b id="profileOrders">—</b></div></div>
+            <div class="col-12"><div class="bg-soft rounded p-2">
+              <div class="text-muted">Member since</div><b id="profileSince">—</b></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="panel mb-4">
+          <h5><i class="bi bi-person me-2 text-primary"></i>Profile details</h5>
+          <form id="profileForm" novalidate>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label" for="accFullName">Full name</label>
+                <input class="form-control" id="accFullName" name="fullName" type="text" autocomplete="name">
+                <div class="field-error" data-error-for="fullName"></div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="accEmail">Email (login ID)</label>
+                <input class="form-control" id="accEmail" type="email" disabled>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="accPhone">Mobile number</label>
+                <input class="form-control" id="accPhone" name="phone" type="tel" maxlength="10"
+                       placeholder="10-digit mobile" autocomplete="tel">
+                <div class="field-error" data-error-for="phone"></div>
+              </div>
+            </div>
+            <button class="btn btn-primary-am mt-3" type="submit" id="saveProfileBtn">
+              <i class="bi bi-check2-circle me-1"></i>Save changes
+            </button>
+          </form>
+        </div>
+
+        <div class="panel">
+          <h5><i class="bi bi-key me-2 text-primary"></i>Change password</h5>
+          <form id="passwordForm" novalidate>
+            <div class="row g-3">
+              <div class="col-12">
+                <label class="form-label" for="accCurrent">Current password</label>
+                <div class="password-wrap">
+                  <input class="form-control" id="accCurrent" name="currentPassword" type="password"
+                         autocomplete="current-password">
+                  <button class="toggle-pass bi bi-eye" type="button" data-target="accCurrent" aria-label="Show password"></button>
+                </div>
+                <div class="field-error" data-error-for="currentPassword"></div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="accNew">New password</label>
+                <div class="password-wrap">
+                  <input class="form-control" id="accNew" name="newPassword" type="password"
+                         autocomplete="new-password">
+                  <button class="toggle-pass bi bi-eye" type="button" data-target="accNew" aria-label="Show password"></button>
+                </div>
+                <div class="field-error" data-error-for="newPassword"></div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="accConfirm">Confirm new password</label>
+                <div class="password-wrap">
+                  <input class="form-control" id="accConfirm" name="confirmPassword" type="password"
+                         autocomplete="new-password">
+                  <button class="toggle-pass bi bi-eye" type="button" data-target="accConfirm" aria-label="Show password"></button>
+                </div>
+                <div class="field-error" data-error-for="confirmPassword"></div>
+              </div>
+            </div>
+            <button class="btn btn-primary-am mt-3" type="submit" id="changePasswordBtn">
+              <i class="bi bi-shield-lock me-1"></i>Update password
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="am-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4 col-sm-6">
+        <a class="navbar-brand mb-2 d-inline-flex" href="/index.html">
+          <span class="brand-mark">A</span>
+          <span class="brand-text">AATHIRA <b>MART</b></span>
+        </a>
+        <p>Smart Gadgets. Easy Shopping. Your one-stop shop for smartphones, laptops, wearables and every gadget in between.</p>
+        <div class="socials d-flex gap-2">
+          <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" aria-label="X"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+      <div class="col-md-2 col-sm-6">
+        <h6>Shop</h6>
+        <div id="footerCats"><a href="/products.html">All Gadgets</a></div>
+      </div>
+      <div class="col-md-2 col-sm-6">
+        <h6>Quick Links</h6>
+        <a href="/index.html">Home</a>
+        <a href="/products.html">Shop</a>
+        <a href="/cart.html">Cart</a>
+        <a href="/orders.html">My Orders</a>
+        <a href="/account.html">My Account</a>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <h6>Customer Care</h6>
+        <a href="/login.html">Login / Register</a>
+        <a href="/forgot-password.html">Forgot Password</a>
+        <p class="mt-2 mb-1"><i class="bi bi-geo-alt me-2"></i>Smart Street, Tech City, India</p>
+        <p class="mb-1"><i class="bi bi-envelope me-2"></i>support@aathiramart.com</p>
+        <p class="mb-0"><i class="bi bi-telephone me-2"></i>+91 98765 43210</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 AATHIRA MART. All rights reserved.</span>
+      <span>Smart Gadgets. Easy Shopping.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/navbar.js"></script>
+<script src="/js/account.js"></script>
+</body>
+</html>
